@@ -23,6 +23,7 @@ var positionX = [];
 var positionY = [];
 var velocityX = [];
 var velocityY = [];
+var positionX2, positionY2;
 
 class MyClass {
     constructor(param1, param2) {
