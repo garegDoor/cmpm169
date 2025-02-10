@@ -10,89 +10,83 @@
 // Globals
 let myInstance;
 let canvasContainer;
-var centerHorz, centerVert;
+let centerHorz;
+let centerVert;
 
-const iniVel = 4;
-const velRate = 2;
-const radRate = 1;
-const iniRad = 35;
-const spinSpeed = 0.5;
+let occupied;
+let reference;
+let mouse;
+let pmouse;
+let mouseV;
 
-let particles = [];
+class Particle {
+  constructor(x, y, clr) {
+    this.location = createVector(x, y);
+    this.velocity = createVector();
+    this.impatience = 0;
+    this.clr = clr;
+    occupied[x][y] = true;
+    reference[x][y] = this;
+  }
 
+  update() {
+    let px = round(this.location.x);
+    let py = round(this.location.y);
+    let newLoc = p5.Vector.add(this.location, this.velocity);
+    let nx = round(newLoc.x);
+    let ny = round(newLoc.y);
 
+    if ((px !== nx || py !== ny)) {
+      if (nx < 0 || nx >= width) {
+        this.velocity.x *= -0.5;
+      } else if (ny < 0 || ny >= height) {
+        this.velocity.y *= -0.5;
+      } else {
+        if (occupied[nx][ny]) {
+          let delta = p5.Vector.sub(reference[nx][ny].velocity, this.velocity);
+          delta.mult(0.8);
+          let heat = this.impatience / 3.0;
+          delta.add(createVector(random(-heat, heat), random(-heat, heat)));
+          this.velocity.add(delta);
+          reference[nx][ny].velocity.sub(delta);
+          this.impatience++;
+          //if (this.impatience > 4) { this.impatience = 4; }
+					if (this.impatience > 2) { this.impatience = 2; }
+        } else {
+          occupied[px][py] = false;
+          occupied[nx][ny] = true;
+          reference[nx][ny] = this;
+          this.location = newLoc;
+          this.impatience = 0;
+        }
+      }
+    }
 
-function addParticle(x, y, r, v)
-{
-				//var c = color(random(0,255), random(0,255), random(0,255));
-        particles[particles.length] = new particle(x, y, r, v);
+    if (mouseIsPressed) {
+      let arm = p5.Vector.sub(mouse, this.location);
+      let rad = 64;
+      if (arm.mag() < rad) {
+        let delta = p5.Vector.sub(mouseV, this.velocity);
+        delta.mult((1 - arm.mag() / rad) * 0.5);
+        this.velocity.add(delta);
+      }
+    }
+
+    this.velocity.y += 0.1;
+  }
 }
 
-function mousePressed()
-{
-        addParticle(0, 0, iniRad, iniVel);
-}
+let field;
 
-function mouseDragged()
-{
-        addParticle(0, 0, iniRad, iniVel);
-				//addParticle();
-				//addParticle();
+function preload() {
+	img = loadImage('./images/img.jpg');
 }
-
-class particle {
-     constructor(x, y, r, v) {
-         this.pos = createVector(x, y);
-         //this.velX = random(-iniVel, iniVel);
-         //this.velY = random(-iniVel, iniVel);
-			 	 this.velX = random(-v, v);
-			   this.velY = random(-v, v);
-         this.color = color(random(0,255), random(0,255), random(0,255));
-         this.radius = r;
-     }
-    
-     age() {
-         if (this.pos.x > width/2)
-         {
-              this.velX += random(-velRate, 0);
-         }
-         else
-         {
-              this.velX += random(0, velRate); 
-         }
-         
-         if (this.pos.y > height/2)
-         {
-              this.velY += random(-velRate, 0);
-         }
-         else
-         {
-              this.velY += random(0, velRate); 
-         }
-         
-         // this.velX += random(-velRate, velRate);
-         // this.velY += random(-velRate, velRate);
-         
-         this.pos.x = this.pos.x + this.velX;
-         this.pos.y = this.pos.y + this.velY;
-         this.radius -= radRate;
-     }
-     
-     display() {
-         fill(this.color);
-         if (this.radius > 0)
-             //rect(this.pos.x, this.pos.y, this.radius, this.radius);
-            ellipse(this.pos.x, this.pos.y, this.radius, this.radius);
-     }
-	
-}
-
 
 function resizeScreen() {
   centerHorz = canvasContainer.width() / 2; // Adjusted for drawing logic
   centerVert = canvasContainer.height() / 2; // Adjusted for drawing logic
   console.log("Resizing...");
-  resizeCanvas(canvasContainer.width(), canvasContainer.height());
+  resizeCanvas(round(canvasContainer.width()), round(canvasContainer.height()));
   // redrawCanvas(); // Redraw everything based on new size
 }
 
@@ -104,36 +98,56 @@ function setup() {
   canvas.parent("canvas-container");
   // resize canvas is the page is resized
 
-  noiseSeed(random()*Number.MAX_SAFE_INTEGER);
+  //noiseSeed(random()*Number.MAX_SAFE_INTEGER);
 
   $(window).resize(function() {
     resizeScreen();
   });
   resizeScreen();
 
-  noStroke();
-  background(220);
+  //createCanvas(400, 400);
+  occupied = new Array(width).fill().map(() => new Array(height).fill(false));
+  reference = new Array(width).fill().map(() => new Array(height).fill(null));
+
+	
+	img.resize(150, 150);
+  //let boxSize = 150;
+  //field = new Array(boxSize * boxSize);
+	field = new Array(img.width * img.height);
+
+  for (let i = 0; i < field.length; i++) {
+    let x = width / 2 - img.width / 2 + i % img.width;
+    let y = (1.5 * height / 2) - img.width / 2 + Math.floor(i / img.width);
+    //field[i] = new Particle(x, y, color(random(255), random(255), random(255)));
+		cArray = img.get(i % img.width, i / img.width);
+		field[i] = new Particle(x, y, color(cArray[0], cArray[1], cArray[2]));
+  }
 }
 
-// draw() function is called repeatedly, it's the main animation loop
 function draw() {
-  background(255, 0.51);
-		
-		push();
-		translate(mouseX, mouseY);
-		let angle = frameCount * spinSpeed/TWO_PI;
-		rotate(angle);
-		particles.forEach(p => {
-            p.age();
-            p.display();
-            
-        }
-    )
-		pop();
+  background(0);
+	//clear(); // Clears the canvas
+  
+  pmouse = createVector(pmouseX, pmouseY);
+  mouse = createVector(mouseX, mouseY);
+  mouseV = p5.Vector.sub(mouse, pmouse);
+
+  loadPixels(); // Loads the current pixel array into memory
+
+  for (let i = 0; i < field.length; i++) {
+    field[i].update();
+    let x = round(field[i].location.x);
+    let y = round(field[i].location.y);
+    if (x >= 0 && x < width && y >= 0 && y < height) {
+      let index = (x + y * width) * 4;
+      let col = field[i].clr.levels;
+      pixels[index + 0] = col[0]; // Red
+      pixels[index + 1] = col[1]; // Green
+      pixels[index + 2] = col[2]; // Blue
+      pixels[index + 3] = 255;    // Alpha
+    }
+  }
+
+  updatePixels(); // Updates the pixels array with the new color values
 }
 
-// mousePressed() function is called once after every time a mouse button is pressed
-function mousePressed() {
-   console.log('added new particle');
-   particles.push(new particle(mouseX, mouseY));
-}

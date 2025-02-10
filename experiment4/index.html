@@ -45,17 +45,17 @@
 
 			<div class="minor-section">
 				<h2>Description</h2>
-				<p>In this experiment I was originally trying to replicate a plant growth particle system I saw on openprocessing, but eventually decided to move more towards manipulating the particle system by using push & pop on the canvas.</p>
+				<p>In this experiment I was inspired by an interactable falling sand program on openprocessing, and decided to map that simulation on the pixels of an image. You can use your mouse to drag around the pixels or "sand".</p>
 			</div>
 
 			<div class="minor-section">
 				<h2>Technical</h2>
-				<p>When you click and drag with the mouse on the canvas, a new Particle is created, which has a random initial velocity and wants to move towards the center of the canvas. The canvas with all these particles is then rotated over time to create a spiral effect.</p>
+				<p>When you click and drag with the mouse on the canvas, the particles of sand are given a new veloctiy based on their distance to the mouse and the direction it is dragged. When the page is loaded, the image of the red panda is resized and used to set the color values of the sand particles.</p>
 			</div>
 
 			<div class="minor-section">
 				<h2>Reflection</h2>
-				<p>In this project, the main difficulty I had was unexpectedly not the replication of the plant growth particle system, but deciding where to take the project from there. I am happy with both how I was able to replicate the particle system and the unique visuals created by combining that with canvas rotations.</p>
+				<p>In this project, the main difficulty I had was transfering the code for the particles of sand which was originall in Pjs and I recreated it in p5js. I got stuck on this for a while and eventually decided to ask ChatGPT to switch it and then compared what it gave, which worked with what I had and the main difference was that I was accidentally using createVector() more than I should have been, which was leading to a bunch of errors and lag. I also had to round the size of the canvas on this page to be an integer value because for some reason the resizing of the canvas was giving it a fractional value.</p>
 			</div>
 
 		</section>
