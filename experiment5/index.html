@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- This title is used for tabs and bookmarks -->
+	<title>Experiment 5 - 3D Graphics</title>
+
+	<!-- Use UTF character set, a good idea with any webpage -->
+	<meta charset="UTF-8" />
+	<!-- Set viewport so page remains consistently scaled w narrow devices -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<!-- Include CSS file, including a site-wide CSS and for this particular page -->
+	<link rel="stylesheet" type="text/css" href="../css/site.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+
+	<!-- Load jQuery library -->
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+        crossorigin="anonymous"></script>
+	<!-- Load p5.js library -->
+	<script src="https://cdn.jsdelivr.net/npm/p5@1.9.2/lib/p5.js"></script>
+
+	<!-- Link to javascript files - DEFER waits until all elements are rendered -->
+    <script type="text/javascript" src="../js/site.js" DEFER></script>
+	<!-- Use me for a JavaScript OOP Project -->
+	<script type="text/javascript" src="./js/project.js" DEFER></script>
+	<!-- Use me for a p5.js project -->
+	<script type="text/javascript" src="./js/sketch.js" DEFER></script>
+</head>
+<body>
+	<!-- Style this page by changing the CSS in ../css/site.css or css/experiment.css -->
+	<main id="content">
+		<section>
+
+			<h1>Experiment 5 - Growing Buildings</h1>
+
+			<div class="minor-section">
+				<div id="canvas-container">
+					<!-- canvas will be added here -->
+				</div>
+                <div class="fullscreen-box">
+                    <button id="fullscreen">Fullscreen</button>
+                </div>
+			</div>
+
+			<div class="minor-section">
+				<h2>Description</h2>
+				<p>In this experiment I was inspired by the Space Elevator on the website neal.fun as well as the lighting from a Genuary submission on openprocessing by CLAUDIO ESPERANCA. Enjoy watching the buildings peacefully grow all the way to space.</p>
+			</div>
+
+			<div class="minor-section">
+				<h2>Technical</h2>
+				<p>Once I figured out how create both boxes and spheres using the WEBGL mode of the canvas, I started playing with adjusting the scale of the boxes, which when combined with the frameCount and millis() function looked like buildings growing over time. I then decided to add clouds the buildings would pass and eventually the background dims and stars appear in space. The clouds don't move, so because the camera is following the buildings it looks like they are falling. The stars are just small white spheres which get generated once the buildings are tall enough to be in space.</p>
+			</div>
+
+			<div class="minor-section">
+				<h2>Reflection</h2>
+				<p>In this project, the main struggle I had was figuring out what to do in the first place. I enjoyed placing boxes and adjusting their sizes, especially after using the lighting from the openprocessing submission, but I was unsure for a while where to take the project. Then I remembered the website neal.fun and got inspired by how much the boxes looked like small buildings, so I decided to see if I could make them grow overtime. Which then led to me adding the clouds, changing background and stars. If I were to do this project again I think I would have structured the drawing code differently because the way I did it using individual translations was pretty restrictive and I would have liked to add random generation to the clouds.</p>
+			</div>
+
+		</section>
+		<nav id="links" class="minor-section">
+			<!-- Put link back to homepage here. -->
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+            </ul>
+		</nav>
+	</main>
+</body>
+</html>
