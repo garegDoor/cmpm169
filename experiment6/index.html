@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- This title is used for tabs and bookmarks -->
+	<title>Experiment 6 - Grammars & Text Art</title>
+
+	<!-- Use UTF character set, a good idea with any webpage -->
+	<meta charset="UTF-8" />
+	<!-- Set viewport so page remains consistently scaled w narrow devices -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<!-- Include CSS file, including a site-wide CSS and for this particular page -->
+	<link rel="stylesheet" type="text/css" href="../css/site.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+
+	<!-- Load jQuery library -->
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+        crossorigin="anonymous"></script>
+	<!-- Load p5.js library -->
+	<script src="https://cdn.jsdelivr.net/npm/p5@1.9.2/lib/p5.js"></script>
+
+	<!-- Link to javascript files - DEFER waits until all elements are rendered -->
+    <script type="text/javascript" src="../js/site.js" DEFER></script>
+	<!-- Use me for a JavaScript OOP Project -->
+	<script type="text/javascript" src="./js/project.js" DEFER></script>
+	<!-- Use me for a p5.js project -->
+	<script type="text/javascript" src="./js/sketch.js" DEFER></script>
+</head>
+<body>
+	<!-- Style this page by changing the CSS in ../css/site.css or css/experiment.css -->
+	<main id="content">
+		<section>
+
+			<h1>Experiment 6 - Grammar Garden</h1>
+
+			<div class="minor-section">
+				<div id="canvas-container">
+					<!-- canvas will be added here -->
+				</div>
+                <div class="fullscreen-box">
+                    <button id="fullscreen">Fullscreen</button>
+                </div>
+			</div>
+
+			<div class="minor-section">
+				<h2>Description</h2>
+				<p>In this experiment I was inspired by images I had seen of plants being generated using L-Grammars, so I decided to make my own. You can move the mouse around the canvas to change the amount of rotation between lines and the length of the lines.</p>
+			</div>
+
+			<div class="minor-section">
+				<h2>Technical</h2>
+				<p>Once I had setup an L System class, I added rules for creating lines and an axiom that generated a simple looking plant. I then decided to adjust the color of the lines as the system is rendering to become more and more vibrant the further into the generation. I then decided to add a new rule for circles and incorporated it into the rules of the system. I also made the circle colors change throughout the render to create a sort of gradient. Finally I decided adjusting the settings of the system each time I wanted to see it different took too long, so I decided to make the line-length and theta used in the render to be dependent on where the mouse is on screen.</p>
+			</div>
+
+			<div class="minor-section">
+				<h2>Reflection</h2>
+				<p>In this project, the main difficulty was setting up a class for the L-System. My first pass at copying someone elses implementation didn't work, so I decided to start over after watching a short youtube video breaking down how L-Systems worked. Then after getting it working it only took me a few minutes to find an axiom and rule to generate what looked like a plant. From that point it was pretty simple to add new rules and have the color, line length and theta change. From this experiment, I learned how to create and use an L-System, which is something that I have always seen as a sort of mystery, so after seeing how easy and fun it was to implement and play around with, I want to incorporate these more into my future works if possible.</p>
+			</div>
+
+		</section>
+		<nav id="links" class="minor-section">
+			<!-- Put link back to homepage here. -->
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+            </ul>
+		</nav>
+	</main>
+</body>
+</html>
