@@ -45,17 +45,17 @@
 
 			<div class="minor-section">
 				<h2>Description</h2>
-				<p></p>
+				<p>In this experiment you click whether or not you think the mushroom rendered on screen is poisonous or edible and then the name of the mushroom is revealed as well as whether or not you were correct in your guess. I initially struggled for inspiration because all the datasets I was finding online were pretty depressing statistics and so it took me a while to find a dataset I wanted to work with. After looking through datasets for a while I thought it would be cool to try and render something from data and I eventually found a really thorough one for mushrooms that I thought could work. I also remembered some cool online quizzes where you would guess if a mushroom is poisonouos just by looking at it and thought it would be fun to replicate with my bad rendering of mushrooms from the data.</p>
 			</div>
 
 			<div class="minor-section">
 				<h2>Technical</h2>
-				<p></p>
+				<p>To render the mushrooms I am reading the cap diameter, stem width and height, and both the cap color and stem color from a CSV data file I found online. I am then using that data to generate the mushroom using an ellipse for the cap and rect for the mushroom being drawn based on the dimensions given and filling them with the corresponding color from the data. I am also reading the name of the mushroom to display it for when you make your guess. This reading the file happens once at the beginning of the program so in the setup() call and it randomly picks a line (mushroom) from the file to display.</p>
 			</div>
 
 			<div class="minor-section">
 				<h2>Reflection</h2>
-				<p></p>
+				<p>I feel happy with how this experiment turned out. Although if I had more time to spend on it I think my renders could be a lot more accurate. The data file includes a lot of information I am not using such as cap shape and texture. Also because some of the data was qualitative not quantative it was hard to use, especially the colors. Some mushrooms are more than one color but because of being short on time instead of doing something like a gradient, it just randomly chooses a color given. All this being said I am still really happy with the fact that the little quiz game about mushrooms works and you can still tell clearly looking at the render that it is a mushroom, because for a while working on this project I thought it might just be a bad concept in general. So I am happy with how it turned out despite its roughness.</p>
 			</div>
 
 		</section>
